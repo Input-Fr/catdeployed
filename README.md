@@ -2,6 +2,9 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+You need to set the environment variable MISTRAL_API_KEY to yours
+
+
 First, run the development server:
 
 ```bash
