@@ -1,117 +1,70 @@
+// app/page.tsx
+'use client';
+
 import { useState } from 'react';
-import ReactMarkdown from 'react-markdown';
+import dynamic from 'next/dynamic';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
-<<<<<<< HEAD
-export default function ChatPage() {
-=======
-type Props = {
-    setVideoSrc: (src: string) => void;
-    setPoster: (poster: string) => void;
+const ChatPage = dynamic(() => import('./cat'), { ssr: false });
+
+
+
+export default function Home() {
+    const [videoSrc, setVideoSrc] = useState("/background.mp4");
+    const [poster, setPoster] = useState("/idleResting.png");
+/*<video src="/upload.mp4" style={{ display: "none" }} preload="auto" />
+          <video src="/generating.mp4" style={{ display: "none" }} preload="auto" />
+          <video src="/download.mp4" style={{ display: "none" }} preload="auto" />
+          <video src="/background.mp4" style={{ display: "none" }} preload="auto" />*/
+  return (
+      <div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
+
+          <img
+              src={poster}
+              alt="Background"
+              style={{
+                  position: 'fixed',
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  zIndex: -2,
+              }}
+          />
+          <video id={"backVid"}
+          autoPlay
+          muted
+          playsInline
+          poster={poster}
+          preload={'auto'}
+          key={videoSrc}
+          style={{
+              position: 'fixed',
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              zIndex: -1,
+          }}
+      >
+          <source src={videoSrc} type="video/mp4" />
+          Your browser does not support the video tag.
+      </video>
+          <div
+              style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                  zIndex: -1,
+              }}
+          />
+      <main style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
+        <ChatPage setVideoSrc={setVideoSrc} setPoster={setPoster} />
+      </main>
+      </div>
+  );
 }
-
-export default function ChatPage({ setVideoSrc, setPoster}: Props) {
->>>>>>> upstream/main
-    const [input, setInput] = useState('');
-    type CatMsg  = {
-        role: string;
-        content: string;
-    }
-    const [messages, setMessages] = useState<CatMsg[]>([]);
-
-<<<<<<< HEAD
-    const sendMessage = async () => {
-        const newMessages = [...messages, { role: 'user', content: input }];
-=======
-    const preloadVideo = (src: string): Promise<void> => {
-        return new Promise((resolve, reject) => {
-            const video = document.createElement('video');
-            video.src = src;
-            video.preload = 'auto';
-            video.muted = true;
-            video.playsInline = true;
-            video.style.display = 'none';
-
-            const cleanup = () => {
-                video.remove();
-            };
-
-            video.addEventListener('canplaythrough', () => {
-                cleanup();
-                resolve();
-            });
-
-            video.addEventListener('error', (err) => {
-                cleanup();
-                reject(err);
-            });
-
-            document.body.appendChild(video);
-        });
-    };
-
-    const sendMessage = async () => {
-        await preloadVideo("/generating.mp4");
-        await preloadVideo("/downSped.mp4");
-        const newMessages = [...messages, { role: 'user', content: input }];
-        setVideoSrc("/upSped.mp4");
-
-
-        await new Promise<void>(async (resolve) => setTimeout(() => {
-            resolve();
-        }, 1000));
-        setPoster("/idleLoading.png");
-        await new Promise<void>(async (resolve) => setTimeout(() => {
-            resolve();
-        }, 250));
-        setVideoSrc("/generating.mp4");
->>>>>>> upstream/main
-
-        const res = await fetch('/api/cat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ messages: newMessages }),
-        });
-<<<<<<< HEAD
-
-        const data = await res.json();
-        const assistantReply = data.choices[0].message.content;
-
-        setMessages([...newMessages, { role: 'assistant', content: assistantReply }]);
-        setInput('');
-    };
-
-=======
-        await new Promise<void>(async resolve => setTimeout(resolve, 1000));
-        setVideoSrc("/downSped.mp4");
-        await new Promise<void>(async resolve => setTimeout(resolve, 2000));
-        setPoster("/idleResting.png");
-
-        const data = await res.json();
-        const assistantReply = data.choices[0].message.content;
-        setMessages([...newMessages, { role: 'assistant', content: assistantReply }]);
-        setInput('');
-        setVideoSrc("/background.mp4");
-
-    };
-
-
->>>>>>> upstream/main
-    return (
-        <div>
-            <h1>CAT</h1>
-            {messages.map((msg, i) => (
-                <div key={i}><b>{msg.role}:</b> <ReactMarkdown>{msg.content}</ReactMarkdown></div>
-            ))}
-            <input
-                value={input}
-                onChange={e => setInput(e.target.value)}
-                placeholder="Entrez votre message..."
-            />
-            <button onClick={sendMessage}>Send</button>
-        </div>
-    );
-<<<<<<< HEAD
-}
-=======
-}
->>>>>>> upstream/main
