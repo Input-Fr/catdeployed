@@ -15,13 +15,13 @@ const ChatPage = dynamic(() => import('./cat'), { ssr: false });
 export default function Home() {
     const [videoSrc, setVideoSrc] = useState("/background.mp4");
     const [poster, setPoster] = useState("/idleResting.png");
-/*<video src="/upload.mp4" style={{ display: "none" }} preload="auto" />
-          <video src="/generating.mp4" style={{ display: "none" }} preload="auto" />
-          <video src="/download.mp4" style={{ display: "none" }} preload="auto" />
-          <video src="/background.mp4" style={{ display: "none" }} preload="auto" />*/
+
   return (
       <div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
-
+          <video src="/upload.mp4" style={{ display: "none" }} preload="auto" />
+          <video src="/generating.mp4" style={{ display: "none" }} preload="auto" />
+          <video src="/download.mp4" style={{ display: "none" }} preload="auto" />
+          <video src="/background.mp4" style={{ display: "none" }} preload="auto" />
           <img
               src={poster}
               alt="Background"
