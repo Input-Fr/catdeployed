@@ -30,14 +30,13 @@ export default function Home() {
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
-                  zIndex: -2,
+                  zIndex: -1,
               }}
           />
           <video id={"backVid"}
           autoPlay
           muted
           playsInline
-          poster={poster}
           preload={'auto'}
           key={videoSrc}
           style={{
